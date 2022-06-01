@@ -8,6 +8,12 @@
 import Foundation
 
 struct GameList: Decodable {
+    let results: [Game]
+}
+
+struct Game: Decodable {
     
+    var name: String?
+    var metacritic: Int?
     
 }

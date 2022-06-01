@@ -16,6 +16,9 @@
 		F7E250962847849200628E8F /* FavoritesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E250952847849200628E8F /* FavoritesVC.swift */; };
 		F7E2509A28478AF900628E8F /* GameList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E2509928478AF800628E8F /* GameList.swift */; };
 		F7E2509C28478B4A00628E8F /* GameDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E2509B28478B4A00628E8F /* GameDetailVC.swift */; };
+		F7E250A12847986F00628E8F /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E250A02847986F00628E8F /* APIService.swift */; };
+		F7E250A32847A60100628E8F /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E250A22847A60100628E8F /* GameViewModel.swift */; };
+		F7E250A62847B56C00628E8F /* GameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E250A52847B56C00628E8F /* GameTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +33,9 @@
 		F7E250952847849200628E8F /* FavoritesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesVC.swift; sourceTree = "<group>"; };
 		F7E2509928478AF800628E8F /* GameList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameList.swift; sourceTree = "<group>"; };
 		F7E2509B28478B4A00628E8F /* GameDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailVC.swift; sourceTree = "<group>"; };
+		F7E250A02847986F00628E8F /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		F7E250A22847A60100628E8F /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
+		F7E250A52847B56C00628E8F /* GameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +68,8 @@
 		F7E2507A2847654C00628E8F /* GameList-Swift */ = {
 			isa = PBXGroup;
 			children = (
+				F7E250A42847B55900628E8F /* Cell */,
+				F7E2509D2847981800628E8F /* Service */,
 				F7E2508F28476A1B00628E8F /* Model */,
 				F7E2509128477FA100628E8F /* View */,
 				F7E2509028476A2300628E8F /* ViewModel */,
@@ -83,6 +91,7 @@
 		F7E2509028476A2300628E8F /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				F7E250A22847A60100628E8F /* GameViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -122,6 +131,22 @@
 				F7E250892847655400628E8F /* Info.plist */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		F7E2509D2847981800628E8F /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				F7E250A02847986F00628E8F /* APIService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		F7E250A42847B55900628E8F /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F7E250A52847B56C00628E8F /* GameTableViewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -196,8 +221,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				F7E250962847849200628E8F /* FavoritesVC.swift in Sources */,
+				F7E250A12847986F00628E8F /* APIService.swift in Sources */,
+				F7E250A62847B56C00628E8F /* GameTableViewCell.swift in Sources */,
 				F7E2507C2847654C00628E8F /* AppDelegate.swift in Sources */,
 				F7E2509A28478AF900628E8F /* GameList.swift in Sources */,
+				F7E250A32847A60100628E8F /* GameViewModel.swift in Sources */,
 				F7E250942847846300628E8F /* GamesVC.swift in Sources */,
 				F7E2507E2847654C00628E8F /* SceneDelegate.swift in Sources */,
 				F7E2509C28478B4A00628E8F /* GameDetailVC.swift in Sources */,

@@ -8,16 +8,16 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--FavoritesVC-->
         <scene sceneID="cYW-MM-dnk">
             <objects>
-                <viewController id="XAt-Jc-SgN" sceneMemberID="viewController">
+                <viewController id="XAt-Jc-SgN" customClass="FavoritesVC" customModule="GameList_Swift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3AZ-E0-FOe">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Favorites" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M3m-v6-BhF">
-                                <rect key="frame" x="119" y="438" width="69" height="21"/>
+                                <rect key="frame" x="173" y="438" width="69" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -33,30 +33,75 @@
             </objects>
             <point key="canvasLocation" x="928" y="60"/>
         </scene>
-        <!--View Controller-->
+        <!--GamesVC-->
         <scene sceneID="JTL-cv-poa">
             <objects>
-                <viewController id="NjG-2r-zya" sceneMemberID="viewController">
+                <viewController id="NjG-2r-zya" customClass="GamesVC" customModule="GameList_Swift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hw8-NQ-N4N">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Games" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l8K-ZK-ET5">
-                                <rect key="frame" x="186" y="438" width="54" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="150" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="MYR-am-P2o">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search for the games" id="eLa-Jy-JFc">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </searchBar>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="150" id="Mt4-0A-bl7" customClass="GameTableViewCell" customModule="GameList_Swift" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="88.5" width="414" height="150"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Mt4-0A-bl7" id="wnb-gA-fIf">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hO4-cz-kDI">
+                                                    <rect key="frame" x="43" y="29" width="300" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bwJ-a3-oqd">
+                                                    <rect key="frame" x="43" y="82" width="300" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="metacriticLabel" destination="bwJ-a3-oqd" id="piX-dJ-MrQ"/>
+                                            <outlet property="nameLabel" destination="hO4-cz-kDI" id="dOs-Xh-PxN"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="NjG-2r-zya" id="qsx-my-bWR"/>
+                                    <outlet property="delegate" destination="NjG-2r-zya" id="a5f-Tl-e3o"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="3Sg-Vn-TYt"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="MYR-am-P2o" firstAttribute="top" secondItem="3Sg-Vn-TYt" secondAttribute="top" id="5ne-sB-oIZ"/>
+                            <constraint firstItem="3Sg-Vn-TYt" firstAttribute="bottom" secondItem="MYR-am-P2o" secondAttribute="bottom" id="8Tc-5W-EAs"/>
+                            <constraint firstItem="3Sg-Vn-TYt" firstAttribute="trailing" secondItem="MYR-am-P2o" secondAttribute="trailing" id="Xd4-23-0ji"/>
+                            <constraint firstItem="MYR-am-P2o" firstAttribute="leading" secondItem="3Sg-Vn-TYt" secondAttribute="leading" id="l54-BC-haS"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="bHT-B1-pzW"/>
+                    <connections>
+                        <outlet property="tableView" destination="MYR-am-P2o" id="wvt-k9-JeB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dpp-aR-dvI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="928" y="-631"/>
+            <point key="canvasLocation" x="927.536231884058" y="-631.47321428571422"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="rYc-i8-3rg">
