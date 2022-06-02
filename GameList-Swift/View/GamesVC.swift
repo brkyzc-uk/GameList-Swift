@@ -5,7 +5,9 @@
 //  Created by Burak YAZICI on 01/06/2022.
 //
 
+import Foundation
 import UIKit
+import Kingfisher
 
 class GamesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -22,7 +24,7 @@ class GamesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func setUp() {
-        let url = URL(string: "https://api.rawg.io/api/games?key=3be8af6ebf124ffe81d90f514e59856c&page_size=10")!
+        let url = URL(string: "https://api.rawg.io/api/games?key=3be8af6ebf124ffe81d90f514e59856c&page_size=10&page=1")!
         APIService().getData(url: url) { games in
             if let games = games {
                 self.gameListVM = GameListViewModel(games: games)
@@ -45,13 +47,18 @@ class GamesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! GameTableViewCell
+        
         let gameVM = gameListVM.gameAtIndex(indexPath.row)
-        
-        
+        cell.metacriticLabel.text = String(gameVM.metacritic!)
         cell.nameLabel.text = gameVM.name
-        cell.metacriticLabel.text = gameVM.name
         
+        let imageUrl = URL(string: String(gameVM.background_image!))
+        cell.backgroundImageView.kf.indicatorType = .activity
+        cell.backgroundImageView.kf.setImage(with: imageUrl)
+       
+  
         return cell
     }
     

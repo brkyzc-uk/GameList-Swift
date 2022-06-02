@@ -13,7 +13,7 @@ struct GameListViewModel {
 
 extension GameListViewModel {
     var numberOfSections: Int {
-        return games.count
+        return 1
     }
     
     func numberOfRowsInSection(_ section: Int) -> Int {
@@ -39,6 +39,9 @@ extension GameViewModel {
 }
 
 extension GameViewModel {
+    var id: Int? {
+        return self.game.id
+    }
     
     var name: String? {
         return self.game.name
@@ -47,5 +50,9 @@ extension GameViewModel {
     var metacritic: Int? {
         return self.game.metacritic
     }
-   
+    
+    var background_image: String? {
+        return self.game.background_image
+    }
+
 }

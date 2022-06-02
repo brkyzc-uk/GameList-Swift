@@ -10,7 +10,6 @@
 		F7E2507C2847654C00628E8F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E2507B2847654C00628E8F /* AppDelegate.swift */; };
 		F7E2507E2847654C00628E8F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E2507D2847654C00628E8F /* SceneDelegate.swift */; };
 		F7E250832847654C00628E8F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7E250812847654C00628E8F /* Main.storyboard */; };
-		F7E250852847655400628E8F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7E250842847655400628E8F /* Assets.xcassets */; };
 		F7E250882847655400628E8F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7E250862847655400628E8F /* LaunchScreen.storyboard */; };
 		F7E250942847846300628E8F /* GamesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E250932847846300628E8F /* GamesVC.swift */; };
 		F7E250962847849200628E8F /* FavoritesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E250952847849200628E8F /* FavoritesVC.swift */; };
@@ -19,6 +18,7 @@
 		F7E250A12847986F00628E8F /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E250A02847986F00628E8F /* APIService.swift */; };
 		F7E250A32847A60100628E8F /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E250A22847A60100628E8F /* GameViewModel.swift */; };
 		F7E250A62847B56C00628E8F /* GameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E250A52847B56C00628E8F /* GameTableViewCell.swift */; };
+		F7E250A92848C38200628E8F /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = F7E250A82848C38200628E8F /* Kingfisher */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,7 +26,6 @@
 		F7E2507B2847654C00628E8F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F7E2507D2847654C00628E8F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		F7E250822847654C00628E8F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		F7E250842847655400628E8F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F7E250872847655400628E8F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F7E250892847655400628E8F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F7E250932847846300628E8F /* GamesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesVC.swift; sourceTree = "<group>"; };
@@ -43,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7E250A92848C38200628E8F /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,7 +127,6 @@
 		F7E25098284784C500628E8F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				F7E250842847655400628E8F /* Assets.xcassets */,
 				F7E250892847655400628E8F /* Info.plist */,
 			);
 			path = Resources;
@@ -165,6 +164,9 @@
 			dependencies = (
 			);
 			name = "GameList-Swift";
+			packageProductDependencies = (
+				F7E250A82848C38200628E8F /* Kingfisher */,
+			);
 			productName = "GameList-Swift";
 			productReference = F7E250782847654C00628E8F /* GameList-Swift.app */;
 			productType = "com.apple.product-type.application";
@@ -193,6 +195,9 @@
 				Base,
 			);
 			mainGroup = F7E2506F2847654C00628E8F;
+			packageReferences = (
+				F7E250A72848C38200628E8F /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			productRefGroup = F7E250792847654C00628E8F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -208,7 +213,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F7E250882847655400628E8F /* LaunchScreen.storyboard in Resources */,
-				F7E250852847655400628E8F /* Assets.xcassets in Resources */,
 				F7E250832847654C00628E8F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -446,6 +450,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F7E250A72848C38200628E8F /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F7E250A82848C38200628E8F /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F7E250A72848C38200628E8F /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F7E250702847654C00628E8F /* Project object */;
 }

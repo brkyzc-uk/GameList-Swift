@@ -8,12 +8,21 @@
 import Foundation
 
 struct GameList: Decodable {
-    let results: [Game]
+    var results: [Game]
 }
 
 struct Game: Decodable {
     
+    var id: Int?
     var name: String?
     var metacritic: Int?
-    
+    var background_image: String?
+//    var backgroundImage: String?
+//    
+//    enum CodingKeys: String, CodingKey {
+//        case backgroundImage = "background_image"
+//    }
 }
+
+
+

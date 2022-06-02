@@ -21,6 +21,7 @@ class APIService {
                 
                 if let gameList = gameList {
                     completion(gameList.results)
+                    print(gameList.results)
                 }
             }
         }.resume()

@@ -9,7 +9,8 @@ import Foundation
 import UIKit
 
 class GameTableViewCell: UITableViewCell {
-    @IBOutlet weak var nameLabel: UILabel!
     
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var metacriticLabel: UILabel!
 }
