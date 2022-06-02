@@ -54,7 +54,7 @@ class GamesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         cell.metacriticLabel.text = String(gameVM.metacritic!)
         cell.nameLabel.text = gameVM.name
         
-        let imageUrl = URL(string: String(gameVM.background_image!))
+        let imageUrl = URL(string: String(gameVM.backgroundImage!))
         cell.backgroundImageView.kf.indicatorType = .activity
         cell.backgroundImageView.kf.setImage(with: imageUrl)
        

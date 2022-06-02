@@ -51,8 +51,8 @@ extension GameViewModel {
         return self.game.metacritic
     }
     
-    var background_image: String? {
-        return self.game.background_image
+    var backgroundImage: String? {
+        return self.game.backgroundImage
     }
 
 }

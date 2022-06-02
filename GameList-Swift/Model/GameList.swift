@@ -12,16 +12,17 @@ struct GameList: Decodable {
 }
 
 struct Game: Decodable {
-    
     var id: Int?
     var name: String?
     var metacritic: Int?
-    var background_image: String?
-//    var backgroundImage: String?
-//    
-//    enum CodingKeys: String, CodingKey {
-//        case backgroundImage = "background_image"
-//    }
+    var backgroundImage: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "id"
+        case name = "name"
+        case metacritic = "metacritic"
+        case backgroundImage = "background_image"
+    }
 }
 
 
