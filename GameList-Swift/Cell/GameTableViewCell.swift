@@ -10,6 +10,7 @@ import UIKit
 
 class GameTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var ganresLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var metacriticLabel: UILabel!

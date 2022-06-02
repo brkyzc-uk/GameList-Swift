@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct GameListViewModel {
     let games: [Game]
@@ -24,6 +25,9 @@ extension GameListViewModel {
         let game = self.games[index]
         return GameViewModel(game)
     }
+    
+    
+    
 }
 
 
@@ -31,6 +35,7 @@ extension GameListViewModel {
 struct GameViewModel {
     private let game: Game
 }
+
 
 extension GameViewModel {
     init(_ game: Game) {
@@ -53,6 +58,10 @@ extension GameViewModel {
     
     var backgroundImage: String? {
         return self.game.backgroundImage
+    }
+    
+    var genres: [GenresItem]? {
+        return self.game.genres
     }
 
 }

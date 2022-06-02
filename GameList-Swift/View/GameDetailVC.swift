@@ -6,24 +6,45 @@
 //
 
 import UIKit
+import Kingfisher
 
-class GameDetailVC: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
+class GameDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+  
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBOutlet weak var gameDetailImageView: UIImageView!
+    @IBOutlet weak var gameNameLabel: UILabel!
+    @IBOutlet weak var gameDescriptionLabel: UILabel!
+    
+    @IBOutlet weak var gameDetailTableView: UITableView!
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Favourite", style: .plain, target: self, action: #selector(favoriteTapped))
+        
+        let imageUrl = URL(string: "https://media.rawg.io/media/games/456/456dea5e1c7e3cd07060c14e96612001.jpg")
+        
+        gameDetailImageView.kf.setImage(with: imageUrl)
+        
     }
-    */
+    
+    @objc func favoriteTapped() {
+        print("Button tapped!")
+        
+    }
+    
+  
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "urlCell", for: indexPath) as! GameDetailTableViewCell
+        
+        return cell
+    }
+   
 
 }

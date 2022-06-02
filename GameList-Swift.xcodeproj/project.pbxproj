@@ -19,6 +19,7 @@
 		F7E250A32847A60100628E8F /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E250A22847A60100628E8F /* GameViewModel.swift */; };
 		F7E250A62847B56C00628E8F /* GameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E250A52847B56C00628E8F /* GameTableViewCell.swift */; };
 		F7E250A92848C38200628E8F /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = F7E250A82848C38200628E8F /* Kingfisher */; };
+		F7E250B328494C9000628E8F /* GameDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E250B228494C9000628E8F /* GameDetailTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		F7E250A02847986F00628E8F /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		F7E250A22847A60100628E8F /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
 		F7E250A52847B56C00628E8F /* GameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTableViewCell.swift; sourceTree = "<group>"; };
+		F7E250B228494C9000628E8F /* GameDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				F7E250A52847B56C00628E8F /* GameTableViewCell.swift */,
+				F7E250B228494C9000628E8F /* GameDetailTableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -224,6 +227,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7E250B328494C9000628E8F /* GameDetailTableViewCell.swift in Sources */,
 				F7E250962847849200628E8F /* FavoritesVC.swift in Sources */,
 				F7E250A12847986F00628E8F /* APIService.swift in Sources */,
 				F7E250A62847B56C00628E8F /* GameTableViewCell.swift in Sources */,

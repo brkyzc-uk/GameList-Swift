@@ -17,11 +17,16 @@ class GamesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setUp()
 
         navigationController?.navigationBar.prefersLargeTitles = true
         title = "Games"
+        
+        
     }
+    
+
     
     func setUp() {
         let url = URL(string: "https://api.rawg.io/api/games?key=3be8af6ebf124ffe81d90f514e59856c&page_size=10&page=1")!
@@ -57,7 +62,17 @@ class GamesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let imageUrl = URL(string: String(gameVM.backgroundImage!))
         cell.backgroundImageView.kf.indicatorType = .activity
         cell.backgroundImageView.kf.setImage(with: imageUrl)
+        
+        var result = [String]()
        
+        
+        
+        gameVM.genres!.compactMap({ GenresItem in
+            result.append(_: GenresItem.name!)
+            
+        })
+       
+        cell.ganresLabel.text = result.joined(separator: ", ")
   
         return cell
     }
