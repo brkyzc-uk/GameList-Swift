@@ -8,11 +8,18 @@
 import UIKit
 
 class FavoritesVC: UIViewController {
-
+    let myArray = UserDefaults.standard.array(forKey: "favouriteGames")!
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        title = "Favourites(\(myArray.count))"
+       
+        print(myArray)
     }
     
 

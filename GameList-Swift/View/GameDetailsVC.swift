@@ -9,10 +9,11 @@ import UIKit
 import Kingfisher
 
 class GameDetailsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
+    var myArray = UserDefaults.standard.array(forKey: "favouriteGames") as! [Int]
     private var gameDetailsVM: GameDetailViewModel!
    
     var receivedData = 10
+    
 //    var imageUrl = URL(string: "https://media.rawg.io/media/games/456/456dea5e1c7e3cd07060c14e96612001.jpg")
    
     @IBOutlet weak var tableView: UITableView!
@@ -24,17 +25,28 @@ class GameDetailsVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         tableView.delegate = self
         
         setUp()
-     
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Favourite", style: .plain, target: self, action: #selector(favouriteTapped))
+        if myArray.contains(receivedData) {
+            navigationItem.rightBarButtonItem?.isEnabled = false
+        }
+        
  
     }
+
     
     @objc func favouriteTapped() {
-        let userDefaults = UserDefaults.standard
-        var strings: [Int] = userDefaults.object(forKey: "favouriteGames") as? [Int] ?? []
-        strings.append(receivedData)
-        userDefaults.set(strings, forKey: "favouriteGames")
-        print(strings)
+       
+       
+            let userDefaults = UserDefaults.standard
+            var strings: [Int] = userDefaults.object(forKey: "favouriteGames") as? [Int] ?? []
+            strings.append(receivedData)
+            userDefaults.set(strings, forKey: "favouriteGames")
+            navigationItem.rightBarButtonItem?.isEnabled = false
+            
+            print(strings)
+        
+        
+       
     }
     
     func setUp() {
