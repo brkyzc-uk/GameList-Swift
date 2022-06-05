@@ -15,3 +15,4 @@ class GameTableViewCell: UITableViewCell {
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var metacriticLabel: UILabel!
 }
+ 

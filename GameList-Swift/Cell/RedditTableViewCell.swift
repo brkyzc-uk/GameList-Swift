@@ -1,14 +1,16 @@
 //
-//  GameDetailTableViewCell.swift
+//  RedditTableViewCell.swift
 //  GameList-Swift
 //
-//  Created by Burak YAZICI on 02/06/2022.
+//  Created by Burak YAZICI on 05/06/2022.
 //
 
 import UIKit
 
-class GameDetailTableViewCell: UITableViewCell {
+class RedditTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var redditLabel: UILabel!
+   
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -19,5 +21,6 @@ class GameDetailTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+
 
 }

@@ -23,16 +23,20 @@ struct Game: Decodable {
     var backgroundImage: String?
     var genres: [GenresItem]
     
+    
     enum CodingKeys: String, CodingKey {
         case id = "id"
         case name = "name"
         case metacritic = "metacritic"
         case backgroundImage = "background_image"
         case genres = "genres"
+        
     }
     
     
 }
+
+
 
 
 

@@ -27,10 +27,7 @@ extension GameListViewModel {
     }
     
     
-    
 }
-
-
 
 struct GameViewModel {
     private let game: Game
@@ -63,5 +60,6 @@ extension GameViewModel {
     var genres: [GenresItem]? {
         return self.game.genres
     }
+    
 
 }

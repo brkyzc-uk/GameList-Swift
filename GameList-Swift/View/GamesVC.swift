@@ -22,11 +22,7 @@ class GamesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
         navigationController?.navigationBar.prefersLargeTitles = true
         title = "Games"
-        
-        
     }
-    
-
     
     func setUp() {
         let url = URL(string: "https://api.rawg.io/api/games?key=3be8af6ebf124ffe81d90f514e59856c&page_size=10&page=1")!
@@ -56,12 +52,14 @@ class GamesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! GameTableViewCell
         
         let gameVM = gameListVM.gameAtIndex(indexPath.row)
+        let imageUrl = URL(string: gameVM.backgroundImage!)
         cell.metacriticLabel.text = String(gameVM.metacritic!)
         cell.nameLabel.text = gameVM.name
         
-        let imageUrl = URL(string: String(gameVM.backgroundImage!))
         cell.backgroundImageView.kf.indicatorType = .activity
         cell.backgroundImageView.kf.setImage(with: imageUrl)
+        
+
         
         var result = [String]()
        
@@ -73,8 +71,23 @@ class GamesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         })
        
         cell.ganresLabel.text = result.joined(separator: ", ")
-  
+//        print(gameVM.id)
         return cell
     }
+    
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        self.performSegue(withIdentifier: "toDetailVC", sender: self)
+//    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let detailsVC = segue.destination as! GameDetailsVC
+        let selectedRow = tableView.indexPathForSelectedRow!.row
+        detailsVC.receivedData = gameListVM.gameAtIndex(selectedRow).id!
+    }
+
+    
+    
+     
+  
     
 }
