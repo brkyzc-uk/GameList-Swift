@@ -13,28 +13,57 @@ class GamesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     private var gameListVM: GameListViewModel!
     
+    var myClicked = UserDefaults.standard.array(forKey: "tappedGames") as! [Int]
+    
+    var currentPage = 4
+    var pageSize = 10
+    var apiKey = "3be8af6ebf124ffe81d90f514e59856c"
+    
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setUp()
+        self.tableView.reloadData()
 
         navigationController?.navigationBar.prefersLargeTitles = true
         title = "Games"
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        myClicked = UserDefaults.standard.array(forKey: "tappedGames") as! [Int]
+        self.tableView.reloadData()
+    }
+    
+    
+    
     func setUp() {
-        let url = URL(string: "https://api.rawg.io/api/games?key=3be8af6ebf124ffe81d90f514e59856c&page_size=10&page=1")!
+        let url = URL(string: "https://api.rawg.io/api/games?key=\(apiKey)&page_size=\(pageSize)&page=\(currentPage)")!
         APIService().getData(url: url) { games in
             if let games = games {
                 self.gameListVM = GameListViewModel(games: games)
                 DispatchQueue.main.async {
-                    self.tableView.reloadData()
+                    if self.currentPage == 4 {
+                        self.tableView.reloadData()
+                    }
+                    
                 }
             }
         }
+        print("setup called")
+        print(currentPage)
+        print("clicked arrray: \(myClicked)")
+        
     }
+    
+    func fetchNextPage(){
+        currentPage += 1
+        setUp()
+        
+    }
+    
+
     
     
     // MARK: - TableView Functions
@@ -51,38 +80,66 @@ class GamesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! GameTableViewCell
         
+       
+      
+        
         let gameVM = gameListVM.gameAtIndex(indexPath.row)
         let imageUrl = URL(string: gameVM.backgroundImage!)
-        cell.metacriticLabel.text = String(gameVM.metacritic!)
+        if let metaCritic = gameVM.metacritic {
+            cell.metacriticLabel.text = String(metaCritic) 
+        }
+        
         cell.nameLabel.text = gameVM.name
         
         cell.backgroundImageView.kf.indicatorType = .activity
         cell.backgroundImageView.kf.setImage(with: imageUrl)
-        
 
         
+
         var result = [String]()
-       
-        
-        
+
         gameVM.genres!.compactMap({ GenresItem in
             result.append(_: GenresItem.name!)
             
         })
        
         cell.ganresLabel.text = result.joined(separator: ", ")
-//        print(gameVM.id)
+        
+        myClicked.compactMap { clickedId in
+            if gameVM.id == clickedId {
+                cell.backgroundColor = UIColor(red: 0.879, green: 0.879, blue: 0.879, alpha: 1)
+            }
+        }
+
         return cell
     }
     
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        self.performSegue(withIdentifier: "toDetailVC", sender: self)
-//    }
+
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let intTotalRow = tableView.numberOfRows(inSection: indexPath.section)
+        
+        if indexPath.row == intTotalRow - 1 {
+            if intTotalRow % 10 == 0 {
+                fetchNextPage()
+            }
+        }
+    }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         let detailsVC = segue.destination as! GameDetailsVC
         let selectedRow = tableView.indexPathForSelectedRow!.row
         detailsVC.receivedData = gameListVM.gameAtIndex(selectedRow).id!
+        
+        let userDefaults = UserDefaults.standard
+        var strings: [Int] = userDefaults.object(forKey: "tappedGames") as? [Int] ?? []
+        strings.append(detailsVC.receivedData)
+        userDefaults.set(strings, forKey: "tappedGames")
+        
+        
+        print("clicked id: \(strings)")
+        
     }
 
     

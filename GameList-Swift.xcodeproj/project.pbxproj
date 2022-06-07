@@ -25,6 +25,7 @@
 		F7E250E7284CA09E00628E8F /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E250E6284CA09E00628E8F /* ImageTableViewCell.swift */; };
 		F7E250E9284CC74E00628E8F /* GameDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E250E8284CC74E00628E8F /* GameDetail.swift */; };
 		F7E250EB284CC7A100628E8F /* GameDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E250EA284CC7A100628E8F /* GameDetailViewModel.swift */; };
+		F7E250ED284F6E8300628E8F /* FavouriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E250EC284F6E8200628E8F /* FavouriteTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 		F7E250E6284CA09E00628E8F /* ImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTableViewCell.swift; sourceTree = "<group>"; };
 		F7E250E8284CC74E00628E8F /* GameDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetail.swift; sourceTree = "<group>"; };
 		F7E250EA284CC7A100628E8F /* GameDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailViewModel.swift; sourceTree = "<group>"; };
+		F7E250EC284F6E8200628E8F /* FavouriteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +164,7 @@
 				F7E250E2284C876C00628E8F /* WebsiteTableViewCell.swift */,
 				F7E250E4284C877C00628E8F /* RedditTableViewCell.swift */,
 				F7E250E6284CA09E00628E8F /* ImageTableViewCell.swift */,
+				F7E250EC284F6E8200628E8F /* FavouriteTableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -257,6 +260,7 @@
 				F7E2507E2847654C00628E8F /* SceneDelegate.swift in Sources */,
 				F7E250DB284B91E800628E8F /* GameDetailsVC.swift in Sources */,
 				F7E250E5284C877C00628E8F /* RedditTableViewCell.swift in Sources */,
+				F7E250ED284F6E8300628E8F /* FavouriteTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

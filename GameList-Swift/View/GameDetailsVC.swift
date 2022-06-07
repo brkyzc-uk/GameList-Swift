@@ -13,9 +13,8 @@ class GameDetailsVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     private var gameDetailsVM: GameDetailViewModel!
    
     var receivedData = 10
+    var apiKey = "3be8af6ebf124ffe81d90f514e59856c"
     
-//    var imageUrl = URL(string: "https://media.rawg.io/media/games/456/456dea5e1c7e3cd07060c14e96612001.jpg")
-   
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -29,28 +28,22 @@ class GameDetailsVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         if myArray.contains(receivedData) {
             navigationItem.rightBarButtonItem?.isEnabled = false
         }
-        
- 
     }
 
     
     @objc func favouriteTapped() {
-       
-       
-            let userDefaults = UserDefaults.standard
-            var strings: [Int] = userDefaults.object(forKey: "favouriteGames") as? [Int] ?? []
-            strings.append(receivedData)
-            userDefaults.set(strings, forKey: "favouriteGames")
-            navigationItem.rightBarButtonItem?.isEnabled = false
-            
-            print(strings)
-        
-        
-       
+    
+        let userDefaults = UserDefaults.standard
+        var strings: [Int] = userDefaults.object(forKey: "favouriteGames") as? [Int] ?? []
+        strings.append(receivedData)
+        userDefaults.set(strings, forKey: "favouriteGames")
+        navigationItem.rightBarButtonItem?.isEnabled = false
+        //print(strings)
+
     }
     
     func setUp() {
-        let url = URL(string: "https://api.rawg.io/api/games/\(receivedData)?key=3be8af6ebf124ffe81d90f514e59856c")!
+        let url = URL(string: "https://api.rawg.io/api/games/\(receivedData)?key=\(apiKey)")!
         APIService().getDetailData(url: url) { gameDetails in
             if let gameDetails = gameDetails {
                 self.gameDetailsVM = GameDetailViewModel(gameDetails: gameDetails)
@@ -62,44 +55,54 @@ class GameDetailsVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
     
     @objc func openReddit() {
-        let imageUrl = URL(string: gameDetailsVM!.redditUrl!)!
-        UIApplication.shared.open(imageUrl)
+        if let gameDetailsVM = gameDetailsVM {
+            if let redditLink = gameDetailsVM.redditUrl {
+                if let redditUrl = URL(string: redditLink) {
+                    UIApplication.shared.open(redditUrl)
+                }
+            }
+        }
     }
+    
     @objc func openWebsite() {
-        let imageUrl = URL(string: gameDetailsVM!.website!)!
-        UIApplication.shared.open(imageUrl)
+        if let gameDetailsVM = gameDetailsVM {
+            if let websiteLink = gameDetailsVM.website {
+                if let websiteUrl = URL(string: websiteLink) {
+                    UIApplication.shared.open(websiteUrl)
+                }
+            }
+        }
     }
     
   
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
         if indexPath.row == 0 {
-
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: "imageCell") as! ImageTableViewCell
-            
-            
-            if gameDetailsVM != nil{
-                var imageUrl = URL(string: gameDetailsVM!.backgroundImage!)
+            if gameDetailsVM != nil {
+                    
+                let imageUrl = URL(string: gameDetailsVM!.backgroundImage!)
                 cell.nameLabel.text = gameDetailsVM!.name!
                 cell.backgroundImageView.kf.setImage(with: imageUrl)
+                    
             } else {
-                print("bos")
-            }
-           
-            return cell
+                print("empty row 0")
+                }
+                return cell
             
-        }else if indexPath.row == 1 {
-
+        } else if indexPath.row == 1 {
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell") as! DescriptionTableViewCell
-            if gameDetailsVM != nil{
+            if gameDetailsVM != nil {
                 cell.descriptionLabel.text = gameDetailsVM!.description!
             } else {
-                print("bos")
+                print("empty row 1")
             }
             
-             return cell
+            return cell
             
         } else if indexPath.row == 2 {
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: "redditCell") as! RedditTableViewCell
             cell.redditLabel.text = "Visit reddit"
             if gameDetailsVM != nil{
@@ -108,10 +111,7 @@ class GameDetailsVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 cell.redditLabel.isUserInteractionEnabled = true
                 cell.redditLabel.addGestureRecognizer(tap)
                         
-            } else {
-                print("bos")
             }
-            
             return cell
             
         } else {

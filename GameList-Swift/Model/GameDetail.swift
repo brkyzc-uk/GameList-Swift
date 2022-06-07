@@ -16,7 +16,8 @@ struct GameDetail:Decodable {
     var website: String?
     
     enum CodingKeys: String, CodingKey {
-        case id, name, description, website
+        case id, name, website
+        case description = "description_raw"
         case backgroundImage = "background_image"
         case redditUrl = "reddit_url"
         

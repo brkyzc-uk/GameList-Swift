@@ -38,7 +38,7 @@ class APIService {
                 
                 if let gameList = gameList {
                     completion(gameList)
-                    print(gameList.name)
+                    //print(gameList.name)
                 }
             }
         }.resume()
