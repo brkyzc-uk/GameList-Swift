@@ -43,9 +43,10 @@ extension GameDetailViewModel {
         return self.gameDetails.website
     }
     
-  
+    var metaCritic: Int? {
+        return self.gameDetails.metacritic
+    }
     
-
 }
 
 

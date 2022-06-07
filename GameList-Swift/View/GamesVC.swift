@@ -13,7 +13,7 @@ class GamesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     private var gameListVM: GameListViewModel!
     
-    var myClicked = UserDefaults.standard.array(forKey: "tappedGames") as! [Int]
+    var myClicked = UserDefaults.standard.array(forKey: "tappedGames") as? [Int] ?? []
     
     var currentPage = 4
     var pageSize = 10
@@ -32,7 +32,7 @@ class GamesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        myClicked = UserDefaults.standard.array(forKey: "tappedGames") as! [Int]
+        myClicked = UserDefaults.standard.array(forKey: "tappedGames") as? [Int] ?? []
         self.tableView.reloadData()
     }
     
@@ -63,8 +63,6 @@ class GamesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
     }
     
-
-    
     
     // MARK: - TableView Functions
     
@@ -80,32 +78,34 @@ class GamesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! GameTableViewCell
         
-       
-      
-        
         let gameVM = gameListVM.gameAtIndex(indexPath.row)
-        let imageUrl = URL(string: gameVM.backgroundImage!)
+        
+        if let imagePath = gameVM.backgroundImage {
+            if let imageURL = URL(string: imagePath) {
+                cell.backgroundImageView.kf.indicatorType = .activity
+                cell.backgroundImageView.kf.setImage(with: imageURL)
+            }
+        }
+        
         if let metaCritic = gameVM.metacritic {
             cell.metacriticLabel.text = String(metaCritic) 
         }
         
-        cell.nameLabel.text = gameVM.name
-        
-        cell.backgroundImageView.kf.indicatorType = .activity
-        cell.backgroundImageView.kf.setImage(with: imageUrl)
+        if let gameName = gameVM.name {
+            cell.nameLabel.text = gameName
+        }
 
-        
+        if let gameGenres = gameVM.genres {
+            var result = [String]()
+            gameGenres.forEach { GenresItem in
+                if let genresName = GenresItem.name {
+                    result.append(_: genresName)
+                    cell.ganresLabel.text = result.joined(separator: ", ")
+                }
+            }
+        }
 
-        var result = [String]()
-
-        gameVM.genres!.compactMap({ GenresItem in
-            result.append(_: GenresItem.name!)
-            
-        })
-       
-        cell.ganresLabel.text = result.joined(separator: ", ")
-        
-        myClicked.compactMap { clickedId in
+        myClicked.forEach { clickedId in
             if gameVM.id == clickedId {
                 cell.backgroundColor = UIColor(red: 0.879, green: 0.879, blue: 0.879, alpha: 1)
             }
@@ -137,14 +137,8 @@ class GamesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         strings.append(detailsVC.receivedData)
         userDefaults.set(strings, forKey: "tappedGames")
         
-        
         print("clicked id: \(strings)")
         
     }
-
-    
-    
-     
-  
     
 }

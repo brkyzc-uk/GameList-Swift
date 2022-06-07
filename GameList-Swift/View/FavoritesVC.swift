@@ -12,50 +12,62 @@ class FavoritesVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emptyLabel: UILabel!
-    
-    var myFavorites = UserDefaults.standard.array(forKey: "favouriteGames")!
+    var favGameNames = UserDefaults.standard.array(forKey: "favGameNames") ?? []
+    var favMetaCritics = UserDefaults.standard.array(forKey: "favMetaCritics") ?? []
+    var favGameIds = UserDefaults.standard.array(forKey: "favGameIds") ?? []
+    var favGameImages = UserDefaults.standard.array(forKey: "favGameImages") ?? []
     
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
-        
-       setUpTableView()
-        
-        // Do any additional setup after loading the view.
+        setUpTableView()
+    
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        favGameNames = UserDefaults.standard.array(forKey: "favGameNames") ?? []
+        favMetaCritics = UserDefaults.standard.array(forKey: "favMetaCritics") ?? []
+        favGameIds = UserDefaults.standard.array(forKey: "favGameIds") ?? []
+        favGameImages = UserDefaults.standard.array(forKey: "favGameImages") ?? []
         navigationController?.navigationBar.prefersLargeTitles = true
-        title = "Favourites (\(myFavorites.count))"
-       
-        print(myFavorites)
+        title = "Favourites (\(favGameIds.count))"
+        
+        //print(myFavorites)
+        
     }
     
     func setUpTableView() {
         tableView.dataSource = self
         tableView.delegate = self
         
-        if myFavorites.isEmpty {
+        tableView.rowHeight = 160
+        
+        if favGameNames.isEmpty {
             emptyLabel.text = "There is no favourites found."
             tableView.isHidden = true
         } else {
             emptyLabel.isHidden = true
+            tableView.reloadData()
         }
     }
     
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return myFavorites.count
+        return favGameNames.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "rowCell", for: indexPath) as! FavouriteTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! GameTableViewCell
         
-        print("My Favourite Id: \(myFavorites[indexPath.row])")
+        let indexRow = indexPath.row
         
+        cell.nameLabel.text = "\(favGameNames[indexRow])"
+        cell.metacriticLabel.text = "\(favGameIds[indexRow])"
         
-        cell.favLabel.text = "my array \(myFavorites[indexPath.row])"
+      
+     
         
         
         return cell
@@ -63,14 +75,21 @@ class FavoritesVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            confirmDelete()
+            tableView.beginUpdates()
+            favGameIds.remove(at: indexPath.row)
+            favGameNames.remove(at: indexPath.row)
+            favMetaCritics.remove(at: indexPath.row)
             
-            myFavorites.remove(at: indexPath.row)
-            UserDefaults.standard.set(myFavorites, forKey: "favouriteGames")
-            title = "Favourites (\(myFavorites.count))"
+            UserDefaults.standard.set(favGameIds, forKey: "favGameIds")
+            UserDefaults.standard.set(favGameNames, forKey: "favGameNames")
+            UserDefaults.standard.set(favMetaCritics, forKey: "favMetaCritics")
+            
+            title = "Favourites (\(favGameIds.count))"
             tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.endUpdates()
             
         }
+        
     }
 
     

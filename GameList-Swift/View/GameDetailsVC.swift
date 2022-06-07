@@ -9,7 +9,8 @@ import UIKit
 import Kingfisher
 
 class GameDetailsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    var myArray = UserDefaults.standard.array(forKey: "favouriteGames") as! [Int]
+    var favGameId = UserDefaults.standard.array(forKey: "favGameIds") as? [Int] ?? []
+    
     private var gameDetailsVM: GameDetailViewModel!
    
     var receivedData = 10
@@ -24,22 +25,12 @@ class GameDetailsVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         tableView.delegate = self
         
         setUp()
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Favourite", style: .plain, target: self, action: #selector(favouriteTapped))
-        if myArray.contains(receivedData) {
+        
+        if favGameId.contains(receivedData) {
             navigationItem.rightBarButtonItem?.isEnabled = false
         }
-    }
-
-    
-    @objc func favouriteTapped() {
-    
-        let userDefaults = UserDefaults.standard
-        var strings: [Int] = userDefaults.object(forKey: "favouriteGames") as? [Int] ?? []
-        strings.append(receivedData)
-        userDefaults.set(strings, forKey: "favouriteGames")
-        navigationItem.rightBarButtonItem?.isEnabled = false
-        //print(strings)
-
     }
     
     func setUp() {
@@ -74,6 +65,44 @@ class GameDetailsVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         }
     }
     
+    @objc func favouriteTapped() {
+    
+        let userDefaults = UserDefaults.standard
+        
+        var favGameIds: [Int] = userDefaults.object(forKey: "favGameIds") as? [Int] ?? []
+        var favMetaCritics: [Int] = userDefaults.object(forKey: "favMetaCritics") as? [Int] ?? []
+        var favGameNames: [String] = userDefaults.object(forKey: "favGameNames") as? [String] ?? []
+        var favGameImages: [String] = userDefaults.object(forKey: "favGameImages") as? [String] ?? []
+        
+        if let favGameId = gameDetailsVM.id {
+            favGameIds.append(favGameId)
+        }
+        
+        if let favMetaCritic = gameDetailsVM.metaCritic {
+            favMetaCritics.append(favMetaCritic)
+        }
+        
+        if let favGameName = gameDetailsVM.name {
+            favGameNames.append(favGameName)
+        }
+        
+        if let favGameImage = gameDetailsVM.backgroundImage {
+            favGameImages.append(favGameImage)
+        }
+        
+        userDefaults.set(favGameIds, forKey: "favGameIds")
+        userDefaults.set(favMetaCritics, forKey: "favMetaCritics")
+        userDefaults.set(favGameNames, forKey: "favGameNames")
+        userDefaults.set(favGameImages, forKey: "favGameImages")
+        
+        
+        navigationItem.rightBarButtonItem?.title = "Favourited"
+        navigationItem.rightBarButtonItem?.isEnabled = false
+        //print(strings)
+
+    }
+    
+    // MARK: - TableView Functions
   
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
@@ -128,14 +157,10 @@ class GameDetailsVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             }
             return cell
         }
-        
-
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 4
     }
-
-
-
+    
 }
