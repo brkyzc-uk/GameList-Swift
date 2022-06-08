@@ -25,17 +25,29 @@ class GameDetailsVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         tableView.delegate = self
         
         setUp()
-        
+
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Favourite", style: .plain, target: self, action: #selector(favouriteTapped))
         
         if favGameId.contains(receivedData) {
             navigationItem.rightBarButtonItem?.isEnabled = false
         }
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+       super.viewWillAppear(animated)
+       navigationController?.navigationBar.prefersLargeTitles = false
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+      super.viewWillDisappear(animated)
+      navigationController?.navigationBar.prefersLargeTitles = true
+    }
     
     func setUp() {
         let url = URL(string: "https://api.rawg.io/api/games/\(receivedData)?key=\(apiKey)")!
-        APIService().getDetailData(url: url) { gameDetails in
+        APIService().getDetailData(url: url) { [weak self] gameDetails in
+            guard let self = self else { return }
+
             if let gameDetails = gameDetails {
                 self.gameDetailsVM = GameDetailViewModel(gameDetails: gameDetails)
                 DispatchQueue.main.async {
@@ -109,15 +121,15 @@ class GameDetailsVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "imageCell") as! ImageTableViewCell
             if gameDetailsVM != nil {
-                    
+
                 let imageUrl = URL(string: gameDetailsVM!.backgroundImage!)
                 cell.nameLabel.text = gameDetailsVM!.name!
                 cell.backgroundImageView.kf.setImage(with: imageUrl)
-                    
+
             } else {
                 print("empty row 0")
-                }
-                return cell
+            }
+            return cell
             
         } else if indexPath.row == 1 {
             
@@ -160,6 +172,9 @@ class GameDetailsVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if self.gameDetailsVM == nil {
+            return 0
+        }
         return 4
     }
     

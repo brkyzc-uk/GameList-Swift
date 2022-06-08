@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 struct GameListViewModel {
-    let games: [Game]
+    var games: [Game]
 }
 
 extension GameListViewModel {
