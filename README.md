@@ -16,7 +16,6 @@ GameSwift is available through [Swift Package Manager](https://docs.swift.org/pa
 
 iOS Development Target ==> 13.0
 
-* Certifications 
 
 ## Author
 Burak YAZICI
