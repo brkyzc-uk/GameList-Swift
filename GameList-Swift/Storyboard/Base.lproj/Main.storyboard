@@ -261,10 +261,9 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MKf-JJ-unI">
-                                                    <rect key="frame" x="20" y="11" width="351" height="32"/>
+                                                    <rect key="frame" x="20" y="11" width="137" height="32"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="351" id="VCS-5o-hsa"/>
-                                                        <constraint firstAttribute="height" constant="32" id="kbv-XS-8jY"/>
+                                                        <constraint firstAttribute="height" constant="32" id="hra-86-Ajo"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>

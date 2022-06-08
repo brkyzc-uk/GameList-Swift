@@ -30,7 +30,7 @@ extension GameListViewModel {
 }
 
 struct GameViewModel {
-    private let game: Game
+    private var game: Game
 }
 
 

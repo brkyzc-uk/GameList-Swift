@@ -16,7 +16,7 @@ class GamesVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     var myClicked = UserDefaults.standard.array(forKey: "tappedGames") as? [Int] ?? []
 
     var latestSearchedText: String = ""
-    var currentPage = 4
+    var currentPage = 1
     var pageSize = 10
     var apiKey = "3be8af6ebf124ffe81d90f514e59856c"
     
@@ -25,7 +25,11 @@ class GamesVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+//        UserDefaults.standard.removeObject(forKey: "favGameIds")
+//        UserDefaults.standard.removeObject(forKey: "favGameNames")
+//        UserDefaults.standard.removeObject(forKey: "favGameImages")
+//        UserDefaults.standard.removeObject(forKey: "favMetaCritics")
+//        UserDefaults.standard.removeObject(forKey: "tappedGames")
         self.gameListVM = GameListViewModel(games: [])
 
         setUp()
@@ -42,7 +46,8 @@ class GamesVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     
     func setUp() {
         let url = URL(string: "https://api.rawg.io/api/games?key=\(apiKey)&page_size=\(pageSize)&page=\(currentPage)")!
-        APIService().getData(url: url) { games in
+        APIService().getData(url: url) { [weak self] games in
+            guard let self = self else { return }
             if let games = games {
                 if self.currentPage == 1 {
                     self.gameListVM.games = games
@@ -54,10 +59,6 @@ class GamesVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
                 }
             }
         }
-        print("setup called")
-        print(currentPage)
-        print("clicked arrray: \(myClicked)")
-        
     }
     
     func fetchNextPage(){
@@ -66,11 +67,9 @@ class GamesVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         if latestSearchedText == "" {
             setUp()
         } else {
-            search(searchText: latestSearchedText,
-                   currentPage: currentPage)
+            search(searchText: latestSearchedText, currentPage: currentPage)
         }
     }
-    
     
     // MARK: - TableView Functions
     
@@ -143,9 +142,8 @@ class GamesVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         var strings: [Int] = userDefaults.object(forKey: "tappedGames") as? [Int] ?? []
         strings.append(detailsVC.receivedData)
         userDefaults.set(strings, forKey: "tappedGames")
-        
-        print("clicked id: \(strings)")
-        
+
+
     }
 
     // MARK: - SearchBar
@@ -177,7 +175,8 @@ class GamesVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         latestSearchedText = searchText
 
         let url = URL(string: "https://api.rawg.io/api/games?key=\(apiKey)&page_size=\(pageSize)&page=\(currentPage)&search=\(searchText)")!
-        APIService().getSearchData(url: url) { games in
+        APIService().getSearchData(url: url) { [weak self] games in
+            guard let self = self else { return }
             if let games = games {
                 self.gameListVM = GameListViewModel(games: games)
                 DispatchQueue.main.async {

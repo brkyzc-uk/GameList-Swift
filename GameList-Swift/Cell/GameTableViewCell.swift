@@ -14,5 +14,10 @@ class GameTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var metacriticLabel: UILabel!
+    
+    override func prepareForReuse() {
+          backgroundColor = .clear
+          backgroundImageView.image = nil
+      }
 }
  

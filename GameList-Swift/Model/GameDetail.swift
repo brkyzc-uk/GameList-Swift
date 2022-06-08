@@ -21,7 +21,6 @@ struct GameDetail:Decodable {
         case description = "description_raw"
         case backgroundImage = "background_image"
         case redditUrl = "reddit_url"
-        
     }
 }
 

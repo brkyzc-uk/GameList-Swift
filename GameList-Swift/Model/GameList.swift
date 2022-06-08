@@ -25,11 +25,8 @@ struct Game: Decodable {
     
     
     enum CodingKeys: String, CodingKey {
-        case id = "id"
-        case name = "name"
-        case metacritic = "metacritic"
+        case id, name, metacritic, genres
         case backgroundImage = "background_image"
-        case genres = "genres"
         
     }
     
