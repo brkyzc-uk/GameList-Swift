@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+
 struct GameListViewModel {
     var games: [Game]
 }
@@ -60,6 +61,8 @@ extension GameViewModel {
     var genres: [GenresItem]? {
         return self.game.genres
     }
+    
+    
     
     
 

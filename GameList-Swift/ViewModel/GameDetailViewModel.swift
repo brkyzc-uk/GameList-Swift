@@ -47,6 +47,10 @@ extension GameDetailViewModel {
         return self.gameDetails.metacritic
     }
     
+    var genres: [GenresItem]? {
+        return self.gameDetails.genres
+    }
+
 }
 
 

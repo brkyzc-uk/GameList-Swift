@@ -11,7 +11,6 @@ import UIKit
 class APIService {
     
     func getData(url: URL, completion: @escaping ([Game]?) -> () ) {
-        
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
                 print(error.localizedDescription)
@@ -43,7 +42,6 @@ class APIService {
     }
     
     func getDetailData(url: URL, completion: @escaping (GameDetail?) -> () ) {
-        
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
                 print(error.localizedDescription)
@@ -58,7 +56,6 @@ class APIService {
             }
         }.resume()
     }
-    
 }
 
 

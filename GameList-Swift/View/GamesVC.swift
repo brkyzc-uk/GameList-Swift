@@ -10,11 +10,11 @@ import UIKit
 import Kingfisher
 
 class GamesVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
-
+    
     private var gameListVM: GameListViewModel!
     
     var myClicked = UserDefaults.standard.array(forKey: "tappedGames") as? [Int] ?? []
-
+    
     var latestSearchedText: String = ""
     var currentPage = 1
     var pageSize = 10
@@ -22,19 +22,22 @@ class GamesVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-//        UserDefaults.standard.removeObject(forKey: "favGameIds")
-//        UserDefaults.standard.removeObject(forKey: "favGameNames")
-//        UserDefaults.standard.removeObject(forKey: "favGameImages")
-//        UserDefaults.standard.removeObject(forKey: "favMetaCritics")
-//        UserDefaults.standard.removeObject(forKey: "tappedGames")
+        
+        // Delete User Data
+        //        UserDefaults.standard.removeObject(forKey: "favGameIds")
+        //        UserDefaults.standard.removeObject(forKey: "favGameNames")
+        //        UserDefaults.standard.removeObject(forKey: "favGameImages")
+        //        UserDefaults.standard.removeObject(forKey: "favMetaCritics")
+        //        UserDefaults.standard.removeObject(forKey: "favGameGenres")
+        //        UserDefaults.standard.removeObject(forKey: "tappedGames")
+        
         self.gameListVM = GameListViewModel(games: [])
-
         setUp()
         self.tableView.reloadData()
-
+        
         navigationController?.navigationBar.prefersLargeTitles = true
         title = "Games"
     }
@@ -63,7 +66,7 @@ class GamesVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     
     func fetchNextPage(){
         currentPage += 1
-
+        
         if latestSearchedText == "" {
             setUp()
         } else {
@@ -86,7 +89,7 @@ class GamesVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! GameTableViewCell
         
         let gameVM = gameListVM.gameAtIndex(indexPath.row)
-
+        
         if let imagePath = gameVM.backgroundImage {
             if let imageURL = URL(string: imagePath) {
                 cell.backgroundImageView.kf.indicatorType = .activity
@@ -101,7 +104,7 @@ class GamesVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         if let gameName = gameVM.name {
             cell.nameLabel.text = gameName
         }
-
+        
         if let gameGenres = gameVM.genres {
             var result = [String]()
             gameGenres.forEach { GenresItem in
@@ -111,16 +114,14 @@ class GamesVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
                 }
             }
         }
-
+        
         if let id = gameVM.id,
-            myClicked.contains(id) {
+           myClicked.contains(id) {
             cell.backgroundColor = UIColor(red: 0.879, green: 0.879, blue: 0.879, alpha: 1)
         }
-
+        
         return cell
     }
-    
-
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let intTotalRow = tableView.numberOfRows(inSection: indexPath.section)
@@ -131,7 +132,7 @@ class GamesVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
             }
         }
     }
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         let detailsVC = segue.destination as! GameDetailsVC
@@ -142,25 +143,25 @@ class GamesVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         var strings: [Int] = userDefaults.object(forKey: "tappedGames") as? [Int] ?? []
         strings.append(detailsVC.receivedData)
         userDefaults.set(strings, forKey: "tappedGames")
-
-
+        
+        
     }
-
+    
     // MARK: - SearchBar
-
+    
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = true
     }
-
+    
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = false
     }
-
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.count <= 3 { return }
         search(searchText: searchText, currentPage: 1)
     }
-
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         latestSearchedText = ""
         currentPage = 1
@@ -168,13 +169,13 @@ class GamesVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         searchBar.text = ""
         setUp()
     }
-
+    
     func search(searchText: String, currentPage: Int) {
         if latestSearchedText == searchText { return }
-
+        
         latestSearchedText = searchText
-
-        let url = URL(string: "https://api.rawg.io/api/games?key=\(apiKey)&page_size=\(pageSize)&page=\(currentPage)&search=\(searchText)")!
+        
+        guard let url = URL(string: "https://api.rawg.io/api/games?key=\(apiKey)&page_size=\(pageSize)&page=\(currentPage)&search=\(searchText)") else { return }
         APIService().getSearchData(url: url) { [weak self] games in
             guard let self = self else { return }
             if let games = games {

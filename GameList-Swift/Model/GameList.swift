@@ -7,6 +7,8 @@
 
 import Foundation
 
+
+
 struct GameList: Decodable {
     var results: [Game]
 }
@@ -29,8 +31,6 @@ struct Game: Decodable {
         case backgroundImage = "background_image"
         
     }
-    
-    
 }
 
 

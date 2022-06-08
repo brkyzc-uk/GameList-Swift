@@ -9,10 +9,9 @@ import UIKit
 import Kingfisher
 
 class GameDetailsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    var favGameId = UserDefaults.standard.array(forKey: "favGameIds") as? [Int] ?? []
     
     private var gameDetailsVM: GameDetailViewModel!
-   
+    var favGameId = UserDefaults.standard.array(forKey: "favGameIds") as? [Int] ?? []
     var receivedData = 10
     var apiKey = "3be8af6ebf124ffe81d90f514e59856c"
     
@@ -25,29 +24,32 @@ class GameDetailsVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         tableView.delegate = self
         
         setUp()
-
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Favourite", style: .plain, target: self, action: #selector(favouriteTapped))
         
         if favGameId.contains(receivedData) {
             navigationItem.rightBarButtonItem?.isEnabled = false
         }
     }
-
-    override func viewWillAppear(_ animated: Bool) {
-       super.viewWillAppear(animated)
-       navigationController?.navigationBar.prefersLargeTitles = false
+    
+    // For does not tapped before data load
+    override func viewDidAppear(_ animated: Bool) {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Favourite", style: .plain, target: self, action: #selector(favouriteTapped))
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = false
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
-      super.viewWillDisappear(animated)
-      navigationController?.navigationBar.prefersLargeTitles = true
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     func setUp() {
         let url = URL(string: "https://api.rawg.io/api/games/\(receivedData)?key=\(apiKey)")!
         APIService().getDetailData(url: url) { [weak self] gameDetails in
             guard let self = self else { return }
-
+            
             if let gameDetails = gameDetails {
                 self.gameDetailsVM = GameDetailViewModel(gameDetails: gameDetails)
                 DispatchQueue.main.async {
@@ -78,13 +80,14 @@ class GameDetailsVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
     
     @objc func favouriteTapped() {
-    
+        
         let userDefaults = UserDefaults.standard
         
         var favGameIds: [Int] = userDefaults.object(forKey: "favGameIds") as? [Int] ?? []
         var favMetaCritics: [Int] = userDefaults.object(forKey: "favMetaCritics") as? [Int] ?? []
         var favGameNames: [String] = userDefaults.object(forKey: "favGameNames") as? [String] ?? []
         var favGameImages: [String] = userDefaults.object(forKey: "favGameImages") as? [String] ?? []
+        var favGameGenres: [[String]] = userDefaults.object(forKey: "favGameGenres") as? [[String]] ?? []
         
         if let favGameId = gameDetailsVM.id {
             favGameIds.append(favGameId)
@@ -102,30 +105,41 @@ class GameDetailsVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             favGameImages.append(favGameImage)
         }
         
+        
+        if let gameGenres = gameDetailsVM.genres {
+            var result = [String]()
+            gameGenres.forEach { GenresItem in
+                if let genresName = GenresItem.name {
+                    result.append(_: genresName)
+                    
+                }
+            }
+            favGameGenres.append(result)
+        }
+        
         userDefaults.set(favGameIds, forKey: "favGameIds")
         userDefaults.set(favMetaCritics, forKey: "favMetaCritics")
         userDefaults.set(favGameNames, forKey: "favGameNames")
         userDefaults.set(favGameImages, forKey: "favGameImages")
-        
+        userDefaults.set(favGameGenres, forKey: "favGameGenres")
         
         navigationItem.rightBarButtonItem?.title = "Favourited"
         navigationItem.rightBarButtonItem?.isEnabled = false
-        //print(strings)
-
+        
     }
     
     // MARK: - TableView Functions
-  
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "imageCell") as! ImageTableViewCell
             if gameDetailsVM != nil {
-
+                
                 let imageUrl = URL(string: gameDetailsVM!.backgroundImage!)
                 cell.nameLabel.text = gameDetailsVM!.name!
                 cell.backgroundImageView.kf.setImage(with: imageUrl)
-
+                
             } else {
                 print("empty row 0")
             }
@@ -151,7 +165,7 @@ class GameDetailsVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 let tap = UITapGestureRecognizer(target: self, action: #selector(openReddit))
                 cell.redditLabel.isUserInteractionEnabled = true
                 cell.redditLabel.addGestureRecognizer(tap)
-                        
+                
             }
             return cell
             
@@ -163,14 +177,14 @@ class GameDetailsVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 let tap = UITapGestureRecognizer(target: self, action: #selector(openWebsite))
                 cell.websiteLabel.isUserInteractionEnabled = true
                 cell.websiteLabel.addGestureRecognizer(tap)
-                        
+                
             } else {
                 print("bos")
             }
             return cell
         }
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.gameDetailsVM == nil {
             return 0

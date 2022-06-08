@@ -7,7 +7,10 @@
 
 import Foundation
 
-struct GameDetail:Decodable {
+
+
+struct GameDetail: Decodable {
+    
     let id: Int?
     let name: String?
     let description: String?
@@ -15,12 +18,14 @@ struct GameDetail:Decodable {
     var redditUrl: String?
     var website: String?
     var metacritic: Int?
+    var genres: [GenresItem]
     
     enum CodingKeys: String, CodingKey {
-        case id, name, website, metacritic
+        case id, name, website, metacritic, genres
         case description = "description_raw"
         case backgroundImage = "background_image"
         case redditUrl = "reddit_url"
+        
     }
 }
 
